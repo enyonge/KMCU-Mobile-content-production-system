@@ -65,6 +65,16 @@ function renderAdminAllUI(el) {
     });
   }
 
+  data.sort(function(a, b) {
+    var da = String(a.date || '').split(',')[0].trim();
+    var db = String(b.date || '').split(',')[0].trim();
+    if (da !== db) return da.localeCompare(db);
+    
+    var ta = String(a.times || '').split(',')[0].trim();
+    var tb = String(b.times || '').split(',')[0].trim();
+    return ta.localeCompare(tb);
+  });
+
   var statuses = ['', '예약중', '변경됨', '취소', '반납', '시간종료'];
   var filterHtml = '';
   statuses.forEach(function(s) {
