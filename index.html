@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>계명문화대학교 이동형 콘텐츠 제작 시스템 관리</title>
+  <meta name="description" content="계명문화대학교 교수학습지원센터 이동형 콘텐츠 제작 시스템 예약 관리">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header-inner">
+      <div class="header-logo">
+        <div class="header-logo-text">
+          <h1>계명문화대학교<br>이동형 콘텐츠 제작 시스템 관리</h1>
+          <p>Keimyung College University · Mobile Content Production System</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <span class="admin-badge" id="adminBadge">🔒 관리자 모드</span>
+        <button class="header-btn" id="adminToggle" onclick="promptLogin()">🔑 관리자</button>
+        <button class="header-btn" id="adminLogout" onclick="doLogout()">🚪 로그아웃</button>
+      </div>
+    </div>
+    <nav class="nav-bar"><div class="nav-inner" id="navInner"></div></nav>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main-container">
+    <div class="section active" id="section-home"></div>
+    <div class="section" id="section-reserve"></div>
+    <div class="section" id="section-status"></div>
+    <div class="section" id="section-modify"></div>
+    <div class="section" id="section-cancel"></div>
+    <div class="section" id="section-admin-dash"></div>
+    <div class="section" id="section-admin-all"></div>
+    <div class="section" id="section-admin-logs"></div>
+  </main>
+
+  <footer class="footer">
+    &copy; 2025 계명문화대학교 교수학습지원센터. All Rights Reserved.<br>
+    이동형 콘텐츠 제작 시스템 예약 시스템 v1.0
+  </footer>
+
+  <!-- Toast -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Loading -->
+  <div class="loading-overlay" id="loadingOverlay">
+    <div class="spinner"></div>
+    <div class="loading-text">처리 중...</div>
+  </div>
+
+  <!-- Login Modal -->
+  <div class="modal-overlay" id="loginModal">
+    <div class="modal" style="max-width:400px">
+      <div class="modal-header">
+        <h3>🔑 관리자 로그인</h3>
+        <button class="modal-close" onclick="closeModal('loginModal')">×</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label">비밀번호</label>
+          <input type="password" class="form-control" id="adminPw" placeholder="관리자 비밀번호" onkeypress="if(event.key==='Enter')doLogin()">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeModal('loginModal')">취소</button>
+        <button class="btn btn-primary" onclick="doLogin()">로그인</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modify Modal -->
+  <div class="modal-overlay" id="modifyModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>✏️ 예약 변경</h3>
+        <button class="modal-close" onclick="closeModal('modifyModal')">×</button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size:12px;color:var(--text-light);margin-bottom:14px">변경할 항목만 입력하세요. 비워두면 기존 값이 유지됩니다.</p>
+        <div class="form-group">
+          <label class="form-label">날짜 (변경 시)</label>
+          <input type="date" class="form-control" id="modNewDate">
+        </div>
+        <div class="form-group">
+          <label class="form-label">시간 (변경 시)</label>
+          <div class="checkbox-group" id="modTimesContainer"></div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">장소</label>
+          <input class="form-control" id="modNewLocation" placeholder="변경할 장소">
+        </div>
+        <div class="form-group">
+          <label class="form-label">교과목</label>
+          <input class="form-control" id="modNewSubject" placeholder="변경할 교과목">
+        </div>
+        <div class="form-group">
+          <label class="form-label">실제 사용자</label>
+          <input class="form-control" id="modNewActualUser" placeholder="변경할 실제 사용자">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeModal('modifyModal')">취소</button>
+        <button class="btn btn-primary" onclick="submitModify()">변경 확인</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app-core.js"></script>
+  <script src="app-user.js"></script>
+  <script src="app-admin.js"></script>
+</body>
+</html>
