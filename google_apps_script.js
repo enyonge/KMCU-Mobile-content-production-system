@@ -114,7 +114,8 @@ function getReservations(params) {
   }
 
   if (params && params.mode === 'user') {
-    var now = new Date();
+    var nowStr = Utilities.formatDate(new Date(), 'Asia/Seoul', 'yyyy-MM-dd HH:mm:ss');
+    var now = new Date(nowStr.replace(' ', 'T') + '+09:00');
     rows = rows.filter(function(r) {
       if (r.status === '취소' || r.status === '반납' || r.status === '시간종료' || r.active === 'N') return false;
       var dates = String(r.date).split(',').map(function(d) { return d.trim(); });
@@ -379,7 +380,9 @@ function autoExpireReservations() {
   var statusIdx = headers.indexOf('status');
   var updatedAtIdx = headers.indexOf('updatedAt');
   var activeIdx = headers.indexOf('active');
-  var now = new Date();
+  
+  var nowStr = Utilities.formatDate(new Date(), 'Asia/Seoul', 'yyyy-MM-dd HH:mm:ss');
+  var now = new Date(nowStr.replace(' ', 'T') + '+09:00');
 
   for (var i = 1; i < data.length; i++) {
     var status = String(data[i][statusIdx]);
