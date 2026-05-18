@@ -279,6 +279,16 @@ async function renderStatus() {
     return;
   }
 
+  data.sort(function(a, b) {
+    var da = String(a.date || '').split(',')[0].trim();
+    var db = String(b.date || '').split(',')[0].trim();
+    if (da !== db) return da.localeCompare(db);
+    
+    var ta = String(a.times || '').split(',')[0].trim();
+    var tb = String(b.times || '').split(',')[0].trim();
+    return ta.localeCompare(tb);
+  });
+
   var html = '<div class="table-wrapper"><table><thead><tr><th>장비</th><th>예약자</th><th>사번</th><th>실제 사용자</th><th>날짜</th><th>시간</th><th>장소</th><th>교과목</th><th>상태</th></tr></thead><tbody>';
   data.forEach(function(r) {
     html += '<tr>'
