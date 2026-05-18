@@ -86,7 +86,15 @@ function maskEmpNo(n) {
 
 function todayStr() {
   var d = new Date();
-  return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+  var opts = { timeZone: 'Asia/Seoul', year: 'numeric', month: '2-digit', day: '2-digit' };
+  var parts = new Intl.DateTimeFormat('en-US', opts).formatToParts(d);
+  var y = '', m = '', day = '';
+  for (var i = 0; i < parts.length; i++) {
+    if (parts[i].type === 'year') y = parts[i].value;
+    if (parts[i].type === 'month') m = parts[i].value;
+    if (parts[i].type === 'day') day = parts[i].value;
+  }
+  return y + '-' + m + '-' + day;
 }
 
 function badgeHtml(status) {
